@@ -1,4 +1,20 @@
+/**
+* ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+* SendAmountDueDetails.cls Apex class to send emails using email template for charges calculated
+* contacts records
+* * ──────────────────────────────────────────────────────────────────────────────────────────────────
+* @author         Silambarasan Velu <silambinfo@gmail.com>
+* @version        1.0
+*/
 public class SendAmountDueDetails {
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  * sendEmail  apex method handles sending emails for received contacts
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  * @param    List of contacts
+  * @return   void - 
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+  */
     public static void sendEmail(List<Contact> con){
         try{
             List<Messaging.SingleEmailMessage> mails = new
