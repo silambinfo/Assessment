@@ -1,5 +1,16 @@
+/**
+* ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+* MotorCarIncCalculate_Test.cls Apex Test class to covers Unit testing of all Apex class in MotorCar Inc 
+* * ──────────────────────────────────────────────────────────────────────────────────────────────────
+* @author         Silambarasan Velu <silambinfo@gmail.com>
+* @version        1.0
+*/
 @isTest
 public class MotorCarIncCalculate_Test {
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  * setup apex static block to initialize required data for the testing
+  */
     @testSetup static void setup() {
         // Create common test Contacts
         List<Contact> testConts = new List<Contact>();
@@ -8,7 +19,11 @@ public class MotorCarIncCalculate_Test {
         }
         insert testConts;        
     }
-    
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  * testCreateChargeRecord  apex test method to test createChargeRecord success scenario
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  */
     @isTest
     public static void testCreateChargeRecord(){
         Contact con = [Select Id,name from Contact where LastName = 'TestCont0' LIMIT 1];
@@ -18,6 +33,11 @@ public class MotorCarIncCalculate_Test {
         Charge__c charge = [Select id,Start_Time__c from Charge__c where Contact_Id__c=:con.Id and End_Time__c=null LIMIT 1];
         System.assertEquals(true, charge.Start_Time__c != null, 'Charge record not created');
     }
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  *  testCreateChargeRecordFail  apex test method to test createChargeRecord negative scenario
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  */
     @isTest
     public static void testCreateChargeRecordFail(){
         test.startTest();
@@ -32,6 +52,12 @@ public class MotorCarIncCalculate_Test {
         Test.stopTest();
         
     }
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  *  testUpdateEndTime  apex test method to test updateEndTime method of RecordInsertion controller
+  *  positive scenario
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  */
     @isTest
     public static void testUpdateEndTime(){
         Contact con = [Select Id,name from Contact where LastName = 'TestCont0' LIMIT 1];
@@ -43,6 +69,12 @@ public class MotorCarIncCalculate_Test {
         Charge__c chargeResult = [Select id,End_Time__c from Charge__c where Contact_Id__c=:con.Id LIMIT 1];
         System.assertEquals(true, chargeResult.End_Time__c != null, 'Charge record not created');
     }
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  *  testUpdateEndTimeFailure  apex test method to test updateEndTime method of RecordInsertion controller
+  *  negative scenario
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  */
     @isTest
     public static void testUpdateEndTimeFailure(){
         Contact con = new Contact(LastName = 'TestContEndT');
