@@ -1,5 +1,22 @@
+/**
+* ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+* CalculateChargingCostHandler.cls Apex class to calculating charges when charging record updated 
+* with End date.
+* * ──────────────────────────────────────────────────────────────────────────────────────────────────
+* @author         Silambarasan Velu <silambinfo@gmail.com>
+* @version        1.0
+*/
+
 public with sharing class CalculateChargingCostHandler {
     private static boolean run = true;
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  * runOnce apex static method loaded once in a transaction and helps trigger to avoid recursive call
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  * @param    None
+  * @return   Boolean - 
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+  */
     public static boolean runOnce(){
         if(run){
             run=false;
@@ -8,6 +25,16 @@ public with sharing class CalculateChargingCostHandler {
             return run;
         }
     }
+    /**
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+  * calculateCharges apex method called when Charge record updated with End date and calculating  
+  * charges between start time and end time.
+  * ────────────────────────────────────────────────────────────────────────────────────────────────
+  * @param    newCharges    Type List<Charge__c> - new updated Charge__c values
+  * @param    oldChargesMap Type Map<Id,Charge__c> - old before updated Charge__c values
+  * @return   void - nothing
+  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+  */
     public static void calculateCharges(List<Charge__c> newCharges,Map<Id,Charge__c> oldChargesMap){
         try{
             Set<Id> contactId = new Set<Id>();
